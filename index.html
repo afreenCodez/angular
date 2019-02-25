@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+    <html>
+        <head>
+            <title>HTML QUIZ</title>
+            <!-- Latest compiled and minified CSS -->
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+            <!-- jQuery library -->
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+            <!-- Latest compiled JavaScript -->
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+          
+            <!--  -->
+            <script src="js/main.js" type="text/JavaScript"></script>
+            <style>
+               
+            </style>
+        </head>
+        <body onload="displayQuestionAnswerSet(0)">
+            <div class="container">
+                <h2>Panel Heading</h2>
+                    <div class="panel panel-default">
+                        <div class="panel-heading"></div>
+                        <div class="panel-body">
+                        </div>
+                        <div class="panel-footer">
+                            <button id="prev-btn" class="btn btn-primary" onClick="prevQuestion()">Previous</button>
+                            <button id="submit-btn" onClick="nextQuestion()" class="btn btn-primary">Next</button>
+                            <button class="btn btn-primary" onClick="console.log(calculateMarks())">Submit Test</button>
+                        </div>
+                    </div>
+            </div>
+    
+            <script>
+
+                // CLASS TO HOLD QA SETS, INITIALIZED USING CONSTRUCTOR
+
+                function quiz(q,a){
+                    this.q=q;
+                    this.a=a;
+                }
+
+
+
+                // ARRAY TO HOLD THE Q SETS THAT WERE MADE USING THE CLASS ABOVE
+
+                var questionSets=[];
+
+
+                // ARRAY TO HOLD THE SELECTED ANSWERS
+                // 1. LENGTH WOULD BE EXACTLY EQUAL TO THE ABOVE ARRAY
+                // 2. THE INDEXES WILL BE EXACTLY CORRESPONDING TO THE QUESTION INDEXES IN ABOVE ARRAY)
+                // i.e. THE SELECTED OPTION AGAINST QA SET 1, WHICH IS IN questionSets ARRAY INDEX 1, 
+                // WILL BE IN INDEX 1 OF selectedAnswers ARRAY
+
+                var selectedAnswers=[];
+
+
+                // SETTING THE QA SETS
+
+                questionSets[0]=new quiz("How many fingers are there on your hand?",["18","22","63","4"]);
+                questionSets[1]=new quiz("question 2",["opt 1 for q 1","opt 2 for q 1","opt 3 for q 1","opt 4 for q 1"]);
+                questionSets[2]=new quiz("question 3",["opt 1 for q 1","opt 2 for q 1","opt 3 for q 1","opt 4 for q 1"]);
+                questionSets[3]=new quiz("question 4",["opt 1 for q 1","opt 2 for q 1","opt 3 for q 1","opt 4 for q 1"]);
+                questionSets[4]=new quiz("question 5",["opt 1 for q 1","opt 2 for q 1","opt 3 for q 1","opt 4 for q 1"]);
+                questionSets[5]=new quiz("question 6",["opt 1 for q 1","opt 2 for q 1","opt 3 for q 1","opt 4 for q 1"]);
+                questionSets[6]=new quiz("question 7",["opt 1 for q 1","opt 2 for q 1","opt 3 for q 1","opt 4 for q 1"]);
+                questionSets[7]=new quiz("question 8",["opt 1 for q 1","opt 2 for q 1","opt 3 for q 1","opt 4 for q 1"]);
+                questionSets[8]=new quiz("question 9",["opt 1 for q 1","opt 2 for q 1","opt 3 for q 1","opt 4 for q 1"]);
+
+
+                // SETTING THE CORRECT ANSWERS
+
+                var correctAnswers=[1,3,4,2,3,1,2,3,4];
+
+
+                // INITIALLY NO ANSWER IS SELECTED FOR ANY OF THE QUESTIONS, SO INITIALIZED
+                // AT -1
+
+                for(var i = 0; i < questionSets.length; i++)
+                    selectedAnswers[i] = -1;
+
+
+                // CURRENT ACTIVE QUESTION
+
+                var currentQuestionIndex = 0;
+                
+
+                // GOING BACK TO THE PREVIOUS QUESTION BY DECREMENTING INDEX AND CALLING DISPLAY Function
+                
+                function prevQuestion() {
+                    saveResponse();
+                    if(currentQuestionIndex > 0)
+                        displayQuestionAnswerSet(--currentQuestionIndex);
+                }
+
+
+                // MOVING ON TO THE NEXT QUESTION BY INCREMENTING INDEX AND CALLING DISPLAY FX
+
+                
+                function nextQuestion() {
+                    saveResponse();
+                    if(currentQuestionIndex < questionSets.length-1)
+                        displayQuestionAnswerSet(++currentQuestionIndex);
+                }
+                
+
+                // SUBMITTING AN ANSWER
+
+                function saveResponse() {
+                    var anses = document.getElementsByName("ans");
+                    for(var i = 0; i < anses.length; ++i) {
+                        if(anses[i].checked) {
+                            selectedAnswers[currentQuestionIndex] = anses[i].getAttribute("value");
+                            break;
+                        }
+                        else
+                            selectedAnswers[currentQuestionIndex] = -1;
+                    }
+
+                    var badString = "";
+                    for(var i = 0; i < questionSets.length; ++i)
+                        badString += selectedAnswers[i] + "\t";
+
+                    console.log(badString);
+                }
+
+
+                // TO DISPLAY A PARTICULAR QA SET DECIDED BY INDEX
+
+                function displayQuestionAnswerSet(index) {
+                    var inputWalaSection = "";
+                    for(var i = 1; i <=4 ; ++i) {
+                        if(i==selectedAnswers[index])
+                            inputWalaSection += "<input type='radio' name='ans' value='" + i + "' checked>" + questionSets[index].a[i-1] + "<br>";
+                        else
+                            inputWalaSection += "<input type='radio' name='ans' value='" + i + "'>" + questionSets[index].a[i-1] + "<br>";
+                    }
+                    document.getElementsByClassName('panel-heading')[0].innerHTML=questionSets[index].q;
+
+                    document.getElementsByClassName('panel-body')[0].innerHTML=inputWalaSection;
+                }
+
+
+
+                // COMPARING SELECTED ANSWERS AND CORRECT ANSWERS
+
+                function calculateMarks() {
+                    
+                    saveResponse();
+                    var marks = 0;
+                    for(var i = 0; i < questionSets.length; ++i)
+                        if(selectedAnswers[i] == correctAnswers[i])
+                            marks += 4;
+                    return marks;
+                }
+
+            </script>
+        </body>
+    </html>

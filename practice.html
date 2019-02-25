@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h2>Play with the Quiz</h2>
+        <div class="panel panel-default">
+          <div class="panel-heading"></div>
+          <div class="panel-body"></div>
+          <div class="panel-footer"></div>
+        </div>
+    </div>
+    <script>
+        //class to hold objects 
+        // initialized using constructor
+        function quiz(q,a){
+            this.q=q;
+            this.a=a;
+        }
+        
+        //array to hold the question
+        var questionSets=[];
+
+        questionSets[0]= new quiz("Quiz1",["opt1","opt2","opt3","opt4"]);
+        questionSets[1]= new quiz("Quiz2",["opt1","opt2","opt3","opt4"]);
+        questionSets[2]= new quiz("quiz3",["opt1","opt2","opt3","opt4"]);
+        questionSets[3]= new quiz("quiz4",["opt1","opt2","opt3","opt4"]);
+        questionSets[4]= new quiz("quiz5",["opt1","opt2","opt3","opt4"]);
+
+        // ARRAY TO HOLD THE SELECTED ANSWERS
+        // 1. LENGTH WOULD BE EXACTLY EQUAL TO THE ABOVE ARRAY
+        // 2. THE INDEXES WILL BE EXACTLY CORRESPONDING TO THE QUESTION INDEXES IN ABOVE ARRAY)
+        // i.e. THE SELECTED OPTION AGAINST QA SET 1, WHICH IS IN questionSets ARRAY INDEX 1, 
+        // WILL BE IN INDEX 1 OF selectedAnswers ARRAY
+        
+    </script>
+</body>
+</html>
